@@ -1,5 +1,6 @@
 # Author: ryanml
 # Purpose: Solves Level 21 of 0xf.at
+from collections import Counter
 
 class Level21Solver(object):
 
@@ -19,14 +20,9 @@ class Level21Solver(object):
         for word in self.dict_words:
             # Checks to make sure the words are the same length, no point in continuing if not
             if len(word) == len(scrambled_word):
-                # Copy of scrambled word is made
-                scr = scrambled_word
-                # As matching characters are found, they are removed from the copy
-                for ch in word:
-                    if ch in scr:
-                        scr = scr.replace(ch, '', 1)
-                # If every character matches, we will be left with an empty string
-                if scr == '':
+                word_dict = sorted(Counter(word).items())
+                scrambled_dict = sorted(Counter(scrambled_word).items())
+                if word_dict == scrambled_dict:
                     return word
 
     def unscramble_text(self, scrambled_text):
